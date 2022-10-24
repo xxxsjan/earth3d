@@ -1,8 +1,8 @@
 {
-  "name": "earth3d",
+  "name": "earth-3d-threejs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://xxxsjan.github.io/earth3d",
+  "homepage": "https://xxxsjan.github.io/earth-3d",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
