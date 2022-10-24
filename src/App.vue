@@ -13,10 +13,10 @@
 <script setup>
 import * as THREE from 'three';
 import { ref, onMounted } from 'vue';
-import { gsap, random } from 'gsap';
+import { gsap } from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 let screenDom = ref(null);
-let progress = ref(0);
+let progress = ref(100);
 
 const lon2xyz = (R, longitude, latitude) => {
   let lon = (longitude * Math.PI) / 180; // 转弧度值
@@ -278,14 +278,15 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 1920px;
-  height: 1080px;
+  right: 0;
+  bottom: 0;
   z-index: 101;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   color: #fff;
+  margin: auto;
 }
 .progress > img {
   padding: 0 15px;
