@@ -1,23 +1,5 @@
-# earth3d
+# earth-3d
 
-## Project setup
+## 在线地址
 
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-
-```
-yarn build
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<https://xxxsjan.github.io/earth-3d>
