@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <EarthPage />
+    <ThreeHomePage />
   </div>
 </template>
 
@@ -9,6 +9,7 @@ import EarthPage from './components/EarthPage.vue';
 import BaomaPage from './components/BaomaPage.vue';
 import ViewRoom from './components/ViewRoom.vue';
 import RobotPage from './components/RobotPage.vue';
+import ThreeHomePage from './components/ThreeHomePage.vue';
 </script>
 
 <style>
