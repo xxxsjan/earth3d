@@ -1,30 +1,27 @@
 <template>
   <div class="canvas-container" ref="screenDom"></div>
-  <!-- <div class="header">
-    <div class="logo"></div>
-    <div class="menu">
-      <a href="https://www.cpengx.cn/" class="menuItem">首页</a>
-      <a href="https://www.cpengx.cn/%e8%af%be%e7%a8%8b%e6%ba%90%e7%a0%81" class="menuItem">课程源码</a>
-      <a href="https://www.cpengx.cn/moxing" class="menuItem">素材模型</a>
-    </div>
-  </div> -->
+  <!-- <Header/> -->
   <div class="pages" ref="pages">
     <div class="page">
-      <h2 class="title">老陈带你学前端</h2>
-      <p>轻松、好玩、有趣掌握前沿硬核前端技术</p>
+      <!-- <h2 class="title">老陈带你学前端</h2> -->
+      <!-- <p>轻松、好玩、有趣掌握前沿硬核前端技术</p> -->
     </div>
     <div class="page">
-      <h2 class="title">WEB 3D可视化</h2>
-      <p>领略WEB 3D的魅力，让页面无比酷炫</p>
+      <!-- <h2 class="title">WEB 3D可视化</h2> -->
+      <!-- <p>领略WEB 3D的魅力，让页面无比酷炫</p> -->
     </div>
     <div class="page">
-      <h2 class="title">ThreeJS框架</h2>
-      <p>让前端开发3D效果更方便</p>
+      <!-- <h2 class="title">ThreeJS框架</h2> -->
+      <!-- <p>让前端开发3D效果更方便</p> -->
     </div>
+    <LoadingVue :progress="progress" />
   </div>
 </template>
 
 <script setup>
+import LoadingVue from './Loading.vue';
+import Header from './Header.vue';
+
 import * as THREE from 'three';
 import { ref, onMounted } from 'vue';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -32,11 +29,16 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { gsap } from 'gsap';
 let screenDom = ref(null);
 let pages = ref(null);
+let progress = ref(0);
+
 onMounted(() => {
   // 创建场景
   let scene = new THREE.Scene();
+  const { clientWidth, clientHeight } = screenDom.value;
+  // const width = screenDom.value.clientWidth;
+  // const height = screenDom.value.clientHeight;
   // 创建相机
-  let camera = new THREE.PerspectiveCamera(45, screenDom.value.clientWidth / screenDom.value.clientHeight, 0.1, 1000);
+  let camera = new THREE.PerspectiveCamera(45, clientWidth / clientHeight, 0.1, 1000);
   camera.position.set(0, 0, 10);
   // 创建渲染器
   let renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -84,13 +86,14 @@ onMounted(() => {
       // console.log(y);
     });
   });
+
   gltfLoader.load('./model/xq6.glb', (gltf) => {
     gltf.scene.scale.set(0.05, 0.05, 0.05);
     gltf.scene.position.set(3, -8, 0);
     scene.add(gltf.scene);
     let timeline2 = gsap.timeline();
     window.addEventListener('mousemove', (e) => {
-      // console.log(e);
+      console.log('handleMousemove', e);
       let x = (e.clientX / window.innerWidth) * 2 - 1;
       let y = -(e.clientY / window.innerHeight) * 2 + 1;
       if (timeline2.isActive()) {
@@ -204,7 +207,9 @@ onMounted(() => {
     renderer.render(scene, camera);
   }
   render();
-
+  THREE.DefaultLoadingManager.onProgress = function (item, loaded, total) {
+    progress.value = new Number((loaded / total) * 100).toFixed(2);
+  };
   // 监听画面变化，更新渲染画面
   window.addEventListener('resize', () => {
     console.log('画面变化了');
@@ -212,7 +217,6 @@ onMounted(() => {
     camera.aspect = window.innerWidth / window.innerHeight;
     //   更新摄像机的投影矩阵
     camera.updateProjectionMatrix();
-
     //   更新渲染器
     renderer.setSize(window.innerWidth, window.innerHeight);
     //   设置渲染器的像素比
@@ -225,83 +229,9 @@ onMounted(() => {
 .canvas-container {
   width: 100vw;
   height: 100vh;
-}
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.header .logo {
-  height: 100px;
-  width: 300px;
-  background-image: url('../assets/lcdm.png');
-  background-size: 60%;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.canvas-container {
-  width: 100%;
-  height: 100%;
-}
-.menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 50px;
-}
-.menuItem {
-  padding: 0 15px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 900;
-  font-size: 15px;
-}
-.loading {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url(../assets/loading.jpg);
-  background-size: cover;
-  filter: blur(50px);
-  z-index: 100;
-}
-.progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 101;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  color: #fff;
-}
-.progress > img {
-  padding: 0 15px;
+  overflow: hidden;
 }
 
-/* .title {
-    width: 380px;
-    height: 40px;
-    position: fixed;
-    right: 100px;
-    top: 50px;
-    background-color: rgba(0, 0, 0, 0.5);
-    line-height: 40px;
-    text-align: center;
-    color: #fff;
-    border-radius: 5px;
-    z-index: 110;
-  } */
 .pages {
   display: flex;
   flex-direction: column;

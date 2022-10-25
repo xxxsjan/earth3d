@@ -1,16 +1,13 @@
 <template>
   <div class="earth-page">
     <div class="canvas-container" ref="screenDom"></div>
-    <div class="loading" v-if="progress != 100"></div>
-    <div class="progress" v-if="progress != 100">
-      <img src="../assets/loading.gif" alt="" />
-      <span>地球加载中：{{ progress }}%</span>
-    </div>
+    <LoadingVue :progress="progress" />
   </div>
 </template>
 
 <script setup>
 import * as THREE from 'three';
+import LoadingVue from './Loading.vue';
 import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -33,13 +30,19 @@ const lon2xyz = (R, longitude, latitude) => {
 onMounted(() => {
   // 创建场景
   let scene = new THREE.Scene();
+  // console.log(document.documentElement.clientWidth, document.documentElement.clientHeight);
+  // console.log(window.innerWidth, window.innerHeight);
+  // console.log(width, height);
+
+  const width = screenDom.value.clientWidth;
+  const height = screenDom.value.clientHeight;
   // 创建相机
-  let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100000);
+  let camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100000);
 
   camera.position.set(0, 50, 300);
   // 创建渲染器
   let renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(width, height);
   // 将画布添加到页面中
   screenDom.value.appendChild(renderer.domElement);
 
@@ -239,7 +242,7 @@ onMounted(() => {
   render();
 
   THREE.DefaultLoadingManager.onProgress = function (item, loaded, total) {
-    console.log(item, loaded, total);
+    // console.log(item, loaded, total);
     progress.value = new Number((loaded / total) * 100).toFixed(2);
   };
 });
@@ -249,38 +252,6 @@ onMounted(() => {
 .canvas-container {
   width: 100vw;
   height: 100vh;
-}
-.home {
-  width: 100vw;
-  height: 100vh;
-  transform-origin: 0 0;
-}
-.loading {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 1920px;
-  height: 1080px;
-  background-image: url(../assets/loading.jpg);
-  background-size: cover;
-  filter: blur(50px);
-  z-index: 100;
-}
-.progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 101;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  color: #fff;
-  margin: auto;
-}
-.progress > img {
-  padding: 0 15px;
+  overflow: hidden;
 }
 </style>
