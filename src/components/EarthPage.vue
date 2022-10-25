@@ -39,7 +39,7 @@ onMounted(() => {
   // 创建相机
   let camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100000);
 
-  camera.position.set(0, 50, 300);
+  camera.position.set(0, 50, 255);
   // 创建渲染器
   let renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(width, height);
@@ -56,6 +56,9 @@ onMounted(() => {
   // envTexture.mapping = THREE.EquirectangularReflectionMapping;
   scene.background = new THREE.Color(0x030311);
   // scene.environment = envTexture;
+
+  // let axes = new THREE.AxesHelper(100000);
+  // scene.add(axes);
 
   // 使用点材质创建星空效果
   const vertices = [];
@@ -212,7 +215,8 @@ onMounted(() => {
     blending: THREE.AdditiveBlending,
     side: THREE.DoubleSide,
     depthWrite: false,
-    opacity: 0.5,
+    opacity: 0.2,
+    // opacity: 0,
   });
   let moonRingGeometry = new THREE.RingGeometry(145, 155, 64);
   let moonRing = new THREE.Mesh(moonRingGeometry, moonRingMaterial);
@@ -242,7 +246,6 @@ onMounted(() => {
   render();
 
   THREE.DefaultLoadingManager.onProgress = function (item, loaded, total) {
-    // console.log(item, loaded, total);
     progress.value = new Number((loaded / total) * 100).toFixed(2);
   };
 });
