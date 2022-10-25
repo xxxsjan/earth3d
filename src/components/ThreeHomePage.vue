@@ -93,7 +93,6 @@ onMounted(() => {
     scene.add(gltf.scene);
     let timeline2 = gsap.timeline();
     window.addEventListener('mousemove', (e) => {
-      console.log('handleMousemove', e);
       let x = (e.clientX / window.innerWidth) * 2 - 1;
       let y = -(e.clientY / window.innerHeight) * 2 + 1;
       if (timeline2.isActive()) {
