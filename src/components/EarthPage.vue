@@ -51,11 +51,12 @@ onMounted(() => {
   controls.autoRotate = true;
 
   // 创建星空的背景
-  // let url = "./assets/25s.jpg";
+  // let url = './assets/25s.jpg';
   // let envTexture = new THREE.TextureLoader().load(url);
   // envTexture.mapping = THREE.EquirectangularReflectionMapping;
-  scene.background = new THREE.Color(0x030311);
+  // scene.background = envTexture;
   // scene.environment = envTexture;
+  scene.background = new THREE.Color(0x030311);
 
   // let axes = new THREE.AxesHelper(100000);
   // scene.add(axes);
@@ -248,6 +249,18 @@ onMounted(() => {
   THREE.DefaultLoadingManager.onProgress = function (item, loaded, total) {
     progress.value = new Number((loaded / total) * 100).toFixed(2);
   };
+
+  window.addEventListener('resize', () => {
+    console.log('resize');
+    // 更新摄像头
+    camera.aspect = window.innerWidth / window.innerHeight;
+    //   更新摄像机的投影矩阵
+    camera.updateProjectionMatrix();
+    //   更新渲染器
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    //   设置渲染器的像素比
+    renderer.setPixelRatio(window.devicePixelRatio);
+  });
 });
 </script>
 
