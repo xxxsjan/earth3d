@@ -12,10 +12,10 @@ import ViewRoom from './components/ViewRoom.vue';
 import RobotPage from './components/RobotPage.vue';
 import ThreeHomePage from './components/ThreeHomePage.vue';
 
-const comList = [EarthPage, BaomaPage, ViewRoom, RobotPage, ThreeHomePage];
-const index = Math.floor(Math.random() * comList.length);
-console.log(index);
-const com = comList[index];
+// const comList = [EarthPage, BaomaPage, ViewRoom, RobotPage, ThreeHomePage];
+// const index = Math.floor(Math.random() * comList.length);
+// console.log(index);
+// const com = comList[index];
 </script>
 
 <style>
