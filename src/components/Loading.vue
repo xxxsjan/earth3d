@@ -1,5 +1,5 @@
 <template>
-  <div v-if="progress < 1000">
+  <div v-if="progress < 100">
     <div class="loading"></div>
     <div class="progress">
       <img src="../assets/loading.gif" alt="" />
