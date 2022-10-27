@@ -1,5 +1,5 @@
 <template>
-  <div v-if="progress < 100">
+  <div v-if="progress < 1000">
     <div class="loading"></div>
     <div class="progress">
       <img src="../assets/loading.gif" alt="" />
@@ -25,9 +25,9 @@ const props = defineProps({
   right: 0;
   bottom: 0;
   margin: auto;
-  background-image: url('../assets/loading.jpg');
+  /* background-image: url('../assets/loading.jpg'); */
   background-size: cover;
-  filter: blur(50px);
+  backdrop-filter: blur(50px);
   z-index: 100;
 }
 .progress {
