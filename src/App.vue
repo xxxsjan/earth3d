@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- <component :is="com"></component> -->
-    <EarthPage />
+    <BaomaPage />
   </div>
 </template>
 

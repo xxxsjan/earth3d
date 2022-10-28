@@ -124,8 +124,15 @@ onMounted(() => {
 
   // 添加控制器
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.update();
-
+  // controls.enableZoom = false;// 缩放
+  // controls.enableRotate = false;// 旋转
+  // z 轴为上 开始计角度 0为垂直俯视，最多为Math.PI 视角为90度仰视
+  controls.minPolarAngle = Math.PI / 3; // 垂直 Range is 0 to Math.PI default is 0.
+  controls.maxPolarAngle = Math.PI / 2; // 垂直 Range is 0 to Math.PI default is Math.PI.
+  // controls.minAzimuthAngle = ; // 水平 [ - 2 PI, 2 PI ],Default is Infinity.
+  // controls.maxAzimuthAngle = ; // 水平  [ - 2 PI, 2 PI ],Default is Infinity.
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = -1; // 东向西
   // 添加gltf汽车模型
   const loader = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
